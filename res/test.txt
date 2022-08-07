@@ -1,0 +1,16 @@
+value:1
+"Key1"{
+	value:truE
+	value1:43.1
+	value2:11
+	value3:String
+	"Key2"{
+		value:3
+		"Key3"{
+			value:4
+			"Key4"{
+				value:5
+			}
+		}
+	}
+}
