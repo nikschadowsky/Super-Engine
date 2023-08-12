@@ -19,6 +19,9 @@ public class ByteReaderTest {
         String expected = "this is the file content to\nbe\nread\n\nyeehaw!\n1234567890".replaceAll("\\v", System.lineSeparator());
 
         assertEquals(expected, actual);
+
+        byte[] noData = ByteReader.readAllBytesFromFile("");
+        assertEquals(0, noData.length);
     }
 
 }
