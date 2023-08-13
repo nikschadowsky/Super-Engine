@@ -27,14 +27,14 @@ public abstract class BufferObject {
 		gl.glNamedBufferData(id, data.capacity() * size, data, GL.GL_DYNAMIC_DRAW);
 	}
 
-	public abstract void bind(VertexArrayObject vao);
+	public abstract void bind(nikschadowsky.engine.opengl.VertexArrayObject vao);
 
 	public static class VertexBufferObject extends BufferObject {
 
 		private int stride = 4;
 
 		@Override
-		public void bind(VertexArrayObject vao) {
+		public void bind(nikschadowsky.engine.opengl.VertexArrayObject vao) {
 
 			gl.glVertexArrayVertexBuffer(vao.getID(), 0, id, 0, stride * Float.BYTES);
 
@@ -52,7 +52,7 @@ public abstract class BufferObject {
 	public static class ElementBufferObject extends BufferObject {
 
 		@Override
-		public void bind(VertexArrayObject vao) {
+		public void bind(nikschadowsky.engine.opengl.VertexArrayObject vao) {
 
 			gl.glVertexArrayElementBuffer(vao.getID(), id);
 
