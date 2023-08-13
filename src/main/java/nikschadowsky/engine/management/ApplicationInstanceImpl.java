@@ -3,7 +3,7 @@ package nikschadowsky.engine.management;
 /**
  * File created on 13.08.2023
  */
-public abstract class ApplicationInstanceImpl implements ApplicationInstance{
+public non-sealed abstract class ApplicationInstanceImpl implements ApplicationInstance{
 
 
     @Override
