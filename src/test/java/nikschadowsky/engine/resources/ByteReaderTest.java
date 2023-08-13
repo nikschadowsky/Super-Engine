@@ -12,7 +12,7 @@ public class ByteReaderTest {
     @Test
     void testReadAllBytesFromFile(){
 
-        byte[] fileData = ByteReader.readAllBytesFromFile("src/test/resources/testReadAllBytesFromFile.txt");
+        byte[] fileData = ByteReader.readAllBytesFromFile("src/test/resources/testReadAllBytesFromFile.test");
 
         String actual = new String(fileData).replaceAll("\r\n",System.lineSeparator());
 

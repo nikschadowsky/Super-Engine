@@ -16,7 +16,7 @@ public class ConfigurationLoaderTest {
     @Test
     void testReadProperties() {
 
-        Map<String, String> actual = ConfigurationLoader.readProperties("src/test/resources/testReadProperties.txt");
+        Map<String, String> actual = ConfigurationLoader.readProperties("src/test/resources/testReadProperties.test");
 
         Map<String, String> expected = new HashMap<>();
         expected.put("prop1", "value1");
