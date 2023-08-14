@@ -7,6 +7,8 @@ import java.util.Map;
  */
 public interface ConfigurationMap {
 
+
+
     String getOrDefault(String key);
 
     Map<String, String> getMap();
