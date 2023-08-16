@@ -53,11 +53,10 @@ public class ThreadManager {
 
     private ThreadManager(String globalConfigPath, String[] startArguments) {
         this.globalConfigPath = globalConfigPath;
-
-        activeInstances = new HashSet<>();
-
         this.globalProperties = new PropertyMap(globalConfigPath);
         this.startArguments = List.of(startArguments);
+
+        activeInstances = new HashSet<>();
 
     }
 
