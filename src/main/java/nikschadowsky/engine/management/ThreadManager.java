@@ -1,81 +1,76 @@
 package nikschadowsky.engine.management;
 
-import nikschadowsky.engine.resources.DefaultResourceLoader;
-import nikschadowsky.engine.resources.Resource;
-import nikschadowsky.engine.statemanager.StateManager;
-import nikschadowsky.engine.window.Window;
+import nikschadowsky.engine.configuration.ConfigurationMap;
+import nikschadowsky.engine.properties.PropertyMap;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+/**
+ * File created on 12.08.2023
+ */
 public class ThreadManager {
 
-
-    private static ArrayList<Window> windowInstances = new ArrayList<>();
-
+    private static ThreadManager SINGLETON = null;
 
     /**
-     * Sollte zum starten von jedem Window-Thread verwendet werden!
+     * Create the Singleton ThreadManager Instance with a specified path to the global config file!
      *
-     * @param configPath of config file <br>
-     * <br>
-     * @implNote TODO statemanager angeben!
+     * @param globalConfigPath path to global config file
      */
-    private static boolean isInit = false;
+    public static void createThreadManager(@NotNull String globalConfigPath, @NotNull String[] startArguments) {
+
+        if (SINGLETON == null) {
+            SINGLETON = new ThreadManager(globalConfigPath, startArguments);
+        } else {
+            System.err.println(ThreadManager.class.getName() + " can only be created once! Use ThreadManager.getInstance() instead!");
+        }
+    }
 
     /**
-     * ONLY RUN ONCE ON STARTUP
+     * Get the Singleton Instance of ThreadManager
+     *
+     * @return Singleton Instance
      */
-    private static void init() {
+    @NotNull(value = "ThreadManager was not created yet!", exception = ThreadManagerInstantiationException.class)
+    public static ThreadManager getInstance() {
+        return SINGLETON;
+    }
 
-        // file manager magic
+    //-----------------------------------------------------------------------------//
 
-        if (!isInit) {
-            FileManager.setResLoader(new DefaultResourceLoader());
-            FileManager.startThread();
-        }
 
-        isInit = true;
+    private final String globalConfigPath;
+
+    private final ConfigurationMap globalProperties;
+
+    private final Set<ApplicationInstance> activeInstances;
+
+    private final List<String> startArguments;
+
+    private ThreadManager(String globalConfigPath, String[] startArguments) {
+        this.globalConfigPath = globalConfigPath;
+
+        activeInstances = new HashSet<>();
+
+        this.globalProperties = new PropertyMap(globalConfigPath);
+        this.startArguments = List.of(startArguments);
 
     }
 
-    public static void start(String configPath, StateManager sm) {
-        init();
-
-//        FileManager.loadResource(configPath, false);
-
-        Window w = new Window(((Resource.Configuration) FileManager.getResource(configPath)).getWindowConfiguration(), sm);
-
-        windowInstances.add(w);
-        w.setInstanceID(windowInstances.indexOf(w));
-        w.start();
-
-        System.gc();
+    void registerInstance(ApplicationInstance instance) {
+        activeInstances.add(instance);
     }
 
-    public static boolean close(int instanceID) {
-
-        boolean toReturn = false;
-
-        if (instanceID < windowInstances.size()) {
-            windowInstances.set(instanceID, null);
-            toReturn = true;
-        }
-
-        for (Window w : windowInstances) {
-            if (w != null) {
-                return toReturn;
-            }
-        }
-        exit(0);
-
-        return toReturn;
-
+    public Map<String, String> getGlobalProperties() {
+        return globalProperties.getMap();
     }
 
-    public static void exit(int exitCode) {
-        System.out.println("Exiting!");
-        System.exit(exitCode);
-
+    public List<String> getStartArguments() {
+        return startArguments;
     }
 
 }
