@@ -12,6 +12,7 @@ public class SuperWindowConfigurationDefaults {
 
     private final static Map<String, String> DEFAULT_CONFIG;
 
+
     static {
         DEFAULT_CONFIG = new HashMap<>();
 
@@ -21,11 +22,15 @@ public class SuperWindowConfigurationDefaults {
         DEFAULT_CONFIG.put("background", "#000000");
         DEFAULT_CONFIG.put("tps", "20");
         DEFAULT_CONFIG.put("fps", "60");
-
+        DEFAULT_CONFIG.put("resizable", "true");
+        DEFAULT_CONFIG.put("min-width", "200");
+        DEFAULT_CONFIG.put("min-height", "200");
+        DEFAULT_CONFIG.put("max-width", "0");
+        DEFAULT_CONFIG.put("max-height", "0");
 
     }
 
-    public static String getDefault(String key) {
+    public static String getDefaultValue(String key) {
 
         DEFAULT_CONFIG.computeIfAbsent(key, k -> {throw new NoSuchConfigurationValue(k);});
 

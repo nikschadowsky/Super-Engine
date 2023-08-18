@@ -22,7 +22,7 @@ public class SuperWindowConfigurationMap implements ConfigurationMap {
 
     @Override
     public String getOrDefault(String key) {
-        return properties.getOrDefault(key, SuperWindowConfigurationDefaults.getDefault(key));
+        return properties.getOrDefault(key, SuperWindowConfigurationDefaults.getDefaultValue(key));
     }
 
     @Override
