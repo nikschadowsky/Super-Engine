@@ -6,12 +6,16 @@ package nikschadowsky.engine.management;
 public non-sealed abstract class ApplicationInstanceImpl implements ApplicationInstance{
 
 
+    private boolean initialized;
+
     @Override
     public final void start() {
         // register this bad boi
         ThreadManager.getInstance().registerInstance(this);
 
         init();
+        initialized = true;
+
         // start this bad boi
         getThread().start();
     }
@@ -20,4 +24,8 @@ public non-sealed abstract class ApplicationInstanceImpl implements ApplicationI
      * Will be executed, before the Thread is started.
      */
     public abstract void init();
+
+    protected boolean isInitialized() {
+        return initialized;
+    }
 }
