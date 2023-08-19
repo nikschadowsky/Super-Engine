@@ -1,4 +1,4 @@
-package nikschadowsky.engine.rendering;
+package nikschadowsky.engine.rendering_old;
 
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
@@ -15,7 +15,7 @@ import nikschadowsky.engine.utilities.resource.ImageUtilities;
 import java.awt.*;
 import java.util.ArrayList;
 
-
+@Deprecated
 public class Renderer {
     /*
      * Layer besitzen FBO, VBO für gesammelte Vertices, und EBO für deren Zeichnung
