@@ -25,6 +25,10 @@ public non-sealed abstract class ApplicationInstanceImpl implements ApplicationI
      */
     public abstract void init();
 
+    protected void removeFromActiveApplicationInstances(){
+        ThreadManager.getInstance().removeInstance(this);
+    }
+
     protected boolean isInitialized() {
         return initialized;
     }
