@@ -1,5 +1,7 @@
 package nikschadowsky.engine.management;
 
+import nikschadowsky.engine.loop.ApplicationLoop;
+
 /**
  * File created on 12.08.2023
  */
@@ -17,7 +19,7 @@ public sealed interface ApplicationInstance permits ApplicationInstanceImpl {
     /**
      * @return the associated Thread
      */
-    Thread getThread();
+    ApplicationLoop getLoop();
 
     /**
      * @return whether

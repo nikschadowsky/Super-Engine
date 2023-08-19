@@ -17,7 +17,7 @@ public non-sealed abstract class ApplicationInstanceImpl implements ApplicationI
         initialized = true;
 
         // start this bad boi
-        getThread().start();
+        getLoop().start();
     }
 
     /**
