@@ -60,8 +60,12 @@ public class ThreadManager {
 
     }
 
-    void registerInstance(ApplicationInstance instance) {
+    protected void registerInstance(ApplicationInstance instance) {
         activeInstances.add(instance);
+    }
+
+    protected void removeInstance(ApplicationInstance instance){
+        activeInstances.remove(instance);
     }
 
     public Map<String, String> getGlobalProperties() {
