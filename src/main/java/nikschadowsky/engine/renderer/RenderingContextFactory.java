@@ -3,7 +3,6 @@ package nikschadowsky.engine.renderer;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLJPanel;
-import nikschadowsky.engine.statemanager.Renderable;
 
 import java.awt.*;
 
