@@ -5,7 +5,7 @@ import nikschadowsky.engine.loop.CoreWindowLoop;
 import nikschadowsky.engine.loop.observer.ApplicationLoopObserver;
 import nikschadowsky.engine.loop.observer.LoopStateEvent;
 import nikschadowsky.engine.management.ApplicationInstanceImpl;
-import nikschadowsky.engine.renderer.RendererVariant;
+import nikschadowsky.engine.renderer.RendererAPIVariant;
 import nikschadowsky.engine.statemanager.StateManager;
 import nikschadowsky.engine.window.configuration.SuperWindowConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -23,9 +23,10 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
     private final StateManager stateManager;
 
     private final SuperWindowConfiguration windowConfiguration;
-    private final RendererVariant rendererVariant;
 
-    private SuperWindowFrame windowTitleFrame;
+    private final RendererAPIVariant rendererApiVariant;
+
+    private final SuperWindowFrame customWindowFrame;
 
     private JFrame window;
 
@@ -33,26 +34,28 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
 
     private ApplicationLoop loop;
 
-    public SuperWindow(@NotNull StateManager stateManager, @NotNull SuperWindowConfiguration windowConfig, @NotNull RendererVariant rendererVariant) {
+    /**
+     * Creates a SuperWindow. This window may be started by invoking {@code start();} and after that may be terminated unrestorably by invoking {@code end();} on this object
+     *
+     * @param stateManager      StateManager
+     * @param windowConfig      Configuration for this Window
+     * @param customWindowFrame Custom Application Frame or {@code null} for the OS-default
+     * @param rendererApi       API Variant used by this Window
+     */
+    public SuperWindow(@NotNull StateManager stateManager, @NotNull SuperWindowConfiguration windowConfig, SuperWindowFrame customWindowFrame, @NotNull RendererAPIVariant rendererApi) {
         this.stateManager = stateManager;
         this.windowConfiguration = windowConfig;
-
-        this.rendererVariant = rendererVariant;
-    }
-
-    public void setWindowFrame(@NotNull SuperWindowFrame frame) {
-        if (isInitialized())
-            throw new SuperWindowInitializationException("Cannot set Window-Frame after Window was started!");
-        windowTitleFrame = frame;
+        this.customWindowFrame = customWindowFrame;
+        this.rendererApiVariant = rendererApi;
     }
 
     @Override
     public void init() {
         window = createFrame(windowConfiguration);
 
-        setupFrame();
+        setupWindowFrame();
 
-        loop = createCoreWindowLoop(windowConfiguration, stateManager, contentPane, rendererVariant);
+        loop = createCoreWindowLoop(windowConfiguration, stateManager, contentPane, rendererApiVariant);
         // We want to monitor this Loops Status to react accordingly, when the loop stops
         loop.addObserver(this);
 
@@ -69,6 +72,12 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
         window.setVisible(true);
     }
 
+    /**
+     * Instantiates a new JFrame with attributes set to the ones specified in windowConfiguration.
+     *
+     * @param windowConfiguration Configuration for the JFrame created
+     * @return configured JFrame
+     */
     private JFrame createFrame(SuperWindowConfiguration windowConfiguration) {
         JFrame newFrame = new JFrame(windowConfiguration.getTitle());
 
@@ -81,49 +90,93 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
         newFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                stop();
+                end();
             }
         });
 
         return newFrame;
     }
 
-    private void setupFrame() {
+    /**
+     * Set up the requirements for using a custom Window Frame.
+     */
+    private void setupWindowFrame() {
         contentPane = window.getContentPane();
+        contentPane.setLayout(new BorderLayout());
 
-        if (windowTitleFrame != null) contentPane = windowTitleFrame.getContentPane();
+        if (customWindowFrame != null) {
+            contentPane = customWindowFrame.getContentPane();
+            window.setUndecorated(true);
+            customWindowFrame.setAssignedSuperWindow(this);
+            window.getContentPane().add(customWindowFrame.getFrameRootContainer());
+        }
     }
 
-    private CoreWindowLoop createCoreWindowLoop(SuperWindowConfiguration windowConfiguration, StateManager stateManager, Container contentPane, RendererVariant renderer) {
-
-        return new CoreWindowLoop(windowConfiguration.getTicksPerSecond(), windowConfiguration.getFramesPerSecond(), stateManager, contentPane, renderer);
+    /**
+     * Create a ApplicationLoop Object for this Window.
+     *
+     * @param windowConfiguration associated windowConfiguration
+     * @param stateManager        associated stateManager
+     * @param contentPane         associated contentPane
+     * @param rendererApi         associated rendererApi
+     * @return Application Loop for this Window
+     */
+    private ApplicationLoop createCoreWindowLoop(SuperWindowConfiguration windowConfiguration, StateManager stateManager, Container contentPane, RendererAPIVariant rendererApi) {
+        return new CoreWindowLoop(windowConfiguration.getTicksPerSecond(), windowConfiguration.getFramesPerSecond(), stateManager, contentPane, rendererApi);
     }
 
-    @Override
-    public void stop() {
-        System.err.println("EXITING WINDOW");
-        loop.stop();
+    /**
+     * @return the Window Configuration
+     */
+    public SuperWindowConfiguration getWindowConfiguration() {
+        return windowConfiguration;
     }
 
+    /**
+     * @return this Window's associated ApplicationLoop
+     */
     @Override
     public ApplicationLoop getLoop() {
         return loop;
     }
 
+    /**
+     * @return whether the loop is running. Should always return true.
+     * TODO: 20.08.2023 Check if this method makes any sense, since the window cannot exist without a running loop.
+     */
     @Override
     public boolean isAlive() {
         return loop.isRunning();
     }
 
+    /**
+     * Attempt to stop the associated ApplicationLoop and ultimately close this Window.
+     */
+    @Override
+    public void end() {
+        System.err.println("EXITING WINDOW, TRYING TO STOP LOOP!");
+        loop.stop();
+    }
+
+    /**
+     * Method, when the loop sends a Status update.
+     * Should not be invoked manually or else unexpected behaviour may occur!
+     *
+     * @param e LoopStateEvent
+     */
     @Override
     public void loopStateUpdate(LoopStateEvent e) {
-        if(e.state().equals(LoopStateEvent.State.STOPPED)){
+        if (e.state().equals(LoopStateEvent.State.STOPPED)) {
             endInstance();
         }
     }
 
-    private void endInstance(){
+    /**
+     * End this windows lifecycle by disposing it and removing it from all active instances.
+     */
+    private void endInstance() {
         window.dispose();
         removeFromActiveApplicationInstances();
     }
+
 }
