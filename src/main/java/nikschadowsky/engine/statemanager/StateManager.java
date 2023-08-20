@@ -6,11 +6,12 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 import nikschadowsky.engine.hierarchy.State;
 import nikschadowsky.engine.opengl.VertexArrayObject;
-import nikschadowsky.engine.rendering.RenderingInformation;
+import nikschadowsky.engine.rendering_old.RenderingInformation;
 
 import java.util.HashMap;
 
-public abstract class StateManager implements GLEventListener {
+// FIXME: 20.08.2023 REWORK this bad boi
+public abstract class StateManager implements GLEventListener, Renderable {
 
     private HashMap<String, State> states;
 
