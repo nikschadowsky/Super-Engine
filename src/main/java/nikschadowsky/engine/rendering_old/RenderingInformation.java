@@ -1,4 +1,4 @@
-package nikschadowsky.engine.rendering;
+package nikschadowsky.engine.rendering_old;
 
 import com.jogamp.opengl.GL4;
 import nikschadowsky.engine.file.FileReader;
@@ -6,6 +6,7 @@ import nikschadowsky.engine.opengl.Shader.FragmentShader;
 import nikschadowsky.engine.opengl.Shader.ShaderProgram;
 import nikschadowsky.engine.opengl.Shader.VertexShader;
 
+@Deprecated
 public class RenderingInformation {
 
     private GL4 gl;

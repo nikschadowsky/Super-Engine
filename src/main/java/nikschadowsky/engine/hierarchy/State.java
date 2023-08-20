@@ -1,6 +1,6 @@
 package nikschadowsky.engine.hierarchy;
 
-import nikschadowsky.engine.rendering.RenderingInformation;
+import nikschadowsky.engine.rendering_old.RenderingInformation;
 
 import java.util.ArrayList;
 import java.util.Comparator;

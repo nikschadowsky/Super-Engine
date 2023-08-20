@@ -1,7 +1,7 @@
 package nikschadowsky.engine.hierarchy;
 
-import nikschadowsky.engine.rendering.Renderer;
-import nikschadowsky.engine.rendering.RenderingInformation;
+import nikschadowsky.engine.rendering_old.Renderer;
+import nikschadowsky.engine.rendering_old.RenderingInformation;
 
 public abstract class Layer implements SortableByZ {
 

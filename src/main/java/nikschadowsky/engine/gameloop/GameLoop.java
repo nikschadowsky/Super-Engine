@@ -8,6 +8,7 @@ import nikschadowsky.engine.statemanager.StateManager;
 
 import java.awt.event.*;
 
+@Deprecated
 public class GameLoop extends GLJPanel implements Runnable {
 
 
