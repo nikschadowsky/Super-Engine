@@ -30,7 +30,7 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
 
     private JFrame window;
 
-    private Container contentPane;
+    private Container renderingContainer;
 
     private ApplicationLoop loop;
 
@@ -55,7 +55,7 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
 
         setupWindowFrame();
 
-        loop = createCoreWindowLoop(windowConfiguration, stateManager, contentPane, rendererApiVariant);
+        loop = createCoreWindowLoop(windowConfiguration, stateManager, renderingContainer, rendererApiVariant);
         // We want to monitor this Loops Status to react accordingly, when the loop stops
         loop.addObserver(this);
 
@@ -101,11 +101,11 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
      * Set up the requirements for using a custom Window Frame.
      */
     private void setupWindowFrame() {
-        contentPane = window.getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        renderingContainer = window.getContentPane();
+        renderingContainer.setLayout(new BorderLayout());
 
         if (customWindowFrame != null) {
-            contentPane = customWindowFrame.getContentPane();
+            renderingContainer = customWindowFrame.getRenderingContainer();
             window.setUndecorated(true);
             customWindowFrame.setAssignedSuperWindow(this);
             window.getContentPane().add(customWindowFrame.getFrameRootContainer());
