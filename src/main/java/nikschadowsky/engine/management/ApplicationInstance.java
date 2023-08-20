@@ -14,7 +14,7 @@ public sealed interface ApplicationInstance permits ApplicationInstanceImpl {
     /**
      * Terminate Thread. It cannot be restarted after that.
      */
-    void stop();
+    void end();
 
     /**
      * @return the associated Thread

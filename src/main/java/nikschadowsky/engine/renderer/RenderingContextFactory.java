@@ -11,7 +11,7 @@ import java.awt.*;
  */
 public class RenderingContextFactory {
 
-    public static Container getRenderingContext(RendererVariant variant, Renderable r){
+    public static Container getRenderingContext(RendererAPIVariant variant, Renderable r){
         switch (variant) {
             case OPENGL -> {return doOpenGl(r);}
             }
