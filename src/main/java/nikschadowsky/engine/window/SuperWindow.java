@@ -103,8 +103,6 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
     public void stop() {
         System.err.println("EXITING WINDOW");
         loop.stop();
-        window.dispose();
-        removeFromActiveApplicationInstances();
     }
 
     @Override
@@ -120,7 +118,12 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
     @Override
     public void loopStateUpdate(LoopStateEvent e) {
         if(e.state().equals(LoopStateEvent.State.STOPPED)){
-            stop();
+            endInstance();
         }
+    }
+
+    private void endInstance(){
+        window.dispose();
+        removeFromActiveApplicationInstances();
     }
 }
