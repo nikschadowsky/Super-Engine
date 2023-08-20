@@ -1,5 +1,6 @@
-package nikschadowsky.engine.window;
+package nikschadowsky.engine.window_old;
 
+@Deprecated
 public class WindowConfiguration {
 
     private String title = "";

@@ -1,7 +1,6 @@
-package nikschadowsky.engine.window;
+package nikschadowsky.engine.window_old;
 
 import nikschadowsky.engine.gameloop.GameLoop;
-import nikschadowsky.engine.management.ThreadManager;
 import nikschadowsky.engine.statemanager.StateManager;
 
 import javax.swing.*;
@@ -9,6 +8,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+@Deprecated
 public class Window {
 
     private JFrame window;
@@ -60,9 +60,9 @@ public class Window {
         loop.stop();
 
         // threadmanager zum nullen in instance-list aufrufen
-        if (!ThreadManager.close(instanceID)) {
+        /*if (!ThreadManager.close(instanceID)) {
             System.err.println("Couldn't close window instance #" + instanceID);
-        }
+        }*/
 
     }
 
