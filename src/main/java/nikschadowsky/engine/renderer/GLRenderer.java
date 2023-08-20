@@ -2,7 +2,6 @@ package nikschadowsky.engine.renderer;
 
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
-import nikschadowsky.engine.statemanager.Renderable;
 
 /**
  * File created on 19.08.2023

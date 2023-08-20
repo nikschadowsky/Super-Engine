@@ -6,6 +6,7 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 import nikschadowsky.engine.hierarchy.State;
 import nikschadowsky.engine.opengl.VertexArrayObject;
+import nikschadowsky.engine.renderer.Renderable;
 import nikschadowsky.engine.rendering_old.RenderingInformation;
 
 import java.util.HashMap;
