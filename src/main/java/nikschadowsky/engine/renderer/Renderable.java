@@ -1,4 +1,4 @@
-package nikschadowsky.engine.statemanager;
+package nikschadowsky.engine.renderer;
 
 /**
  * File created on 19.08.2023
