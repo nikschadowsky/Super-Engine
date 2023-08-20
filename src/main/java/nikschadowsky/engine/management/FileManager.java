@@ -6,6 +6,7 @@ import nikschadowsky.engine.textureatlas.TextureAtlas;
 
 import java.util.HashMap;
 
+@Deprecated
 public class FileManager {
 
     private static Thread fileManagerThread;

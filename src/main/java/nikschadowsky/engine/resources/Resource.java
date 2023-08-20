@@ -1,16 +1,13 @@
 package nikschadowsky.engine.resources;
 
-import nikschadowsky.engine.file.structureFile.StructureElement;
 import nikschadowsky.engine.file.structureFile.StructureReader;
-import nikschadowsky.engine.file.structureFile.StructureValue;
-import nikschadowsky.engine.window.WindowConfiguration;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 
+@Deprecated
 public abstract class Resource {
 
 
@@ -37,7 +34,6 @@ public abstract class Resource {
 
         boolean isWindowConfigInit = false;
 
-        private WindowConfiguration windowConfiguration;
 
         public Configuration(String path) {
             super(path);
@@ -55,36 +51,9 @@ public abstract class Resource {
             }
         }
 
-        public WindowConfiguration getWindowConfiguration() {
-            if (!isWindowConfigInit) {
-
-                generateWindowConfiguration();
-                isWindowConfigInit = true;
-            }
-
-            return windowConfiguration;
-        }
-
-        public void generateWindowConfiguration() {
 
 
-            windowConfiguration = new WindowConfiguration();
 
-            StructureElement element = structure.getSubKey("/window");
-
-            for (String valueName : element.getValues().keySet()) {
-
-                StructureValue value = element.getValues().get(valueName);
-
-                try {
-                    WindowConfiguration.class.getMethod("set" + valueName, String.class).invoke(windowConfiguration, value.getValue());
-                } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-
-                    System.err.println("Illegal value in Configuration-File under \'/window\'-Tree");
-
-                }
-            }
-        }
 
     }
 
