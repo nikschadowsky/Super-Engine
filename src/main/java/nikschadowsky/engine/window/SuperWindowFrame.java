@@ -19,7 +19,7 @@ public abstract class SuperWindowFrame {
      * Create a SuperWindow consisting of a separate Frame-Root-Container and a Rendering-Container. They are not in any
      * relationship by default. While the Frame-Root-Container will be added by the SuperWindow, the Rendering-Container
      * will hold the Rendering Component only. When used by the SuperWindow class, validity will be tested beforehand to
-     * check, if Rendering-Container is a child (direct or indirect) of the Root-Container and if the
+     * check, if Rendering-Container is a descendant of the Root-Container and if the
      * Rendering-Container does not have any children of its own before it is being added. Extending this class will
      * allow you to customize the behaviour to create a window frame of your own choice.
      */
@@ -46,7 +46,7 @@ public abstract class SuperWindowFrame {
 
     /**
      * Tests the component hierarchy. The component hierarchy is correct, if the {@link #getRenderingContainer()}
-     * container is a child (direct or indirect) of the {@link #getFrameRootContainer()} container AND if the
+     * container is a descendant of the {@link #getFrameRootContainer()} container AND if the
      * {@link #getRenderingContainer()} container does not have any children of its own.
      *
      * @return whether the component hierarchy is valid
@@ -55,7 +55,7 @@ public abstract class SuperWindowFrame {
 
         Container parent = getRenderingContainer().getParent();
 
-        if(getRenderingContainer().getComponentCount() != 0) return false;
+        if(getRenderingContainer().getComponentCount() != 0) throw new SuperWindowInitializationException("Invalid setup of SuperWindowFrame component hierarchy! Rendering Container has Descendants!");
 
         while (parent != null) {
 
@@ -65,7 +65,7 @@ public abstract class SuperWindowFrame {
         }
 
 
-        return false;
+        throw new SuperWindowInitializationException("Invalid setup of SuperWindowFrame component hierarchy! Frame root container is not a ancestor of Rendering Container! ");
     }
 
     /**
