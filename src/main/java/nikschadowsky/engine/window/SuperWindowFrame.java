@@ -13,6 +13,7 @@ public abstract class SuperWindowFrame {
     private final JPanel frameRootContainer;
 
     private final JPanel renderingContainer;
+
     private SuperWindow assignedWindow;
 
     /**
@@ -29,7 +30,11 @@ public abstract class SuperWindowFrame {
 
         renderingContainer = new JPanel();
         renderingContainer.setLayout(new BorderLayout());
+
+        init();
     }
+
+    public void init(){}
 
     /**
      * Since subclasses may use information provided by the SuperWindow, can an instance of SuperWindowFrame only be
@@ -82,6 +87,13 @@ public abstract class SuperWindowFrame {
     @NotNull
     public final Container getFrameRootContainer() {
         return frameRootContainer;
+    }
+
+    /**
+     * @return the SuperWindow using this instance
+     */
+    public SuperWindow getAssignedWindow() {
+        return assignedWindow;
     }
 
 }
