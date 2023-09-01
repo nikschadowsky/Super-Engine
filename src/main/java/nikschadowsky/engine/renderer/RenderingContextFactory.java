@@ -12,17 +12,20 @@ import java.awt.*;
  */
 public class RenderingContextFactory {
 
+    private static final RendererAPIVariant DEFAULT_API = RendererAPIVariant.OPENGL;
+
     /**
      * Get a container to add to the SuperWindow and the root {@link Renderable}, which handles the user's rendering.
      * @param variant API variant
      * @param root {@link Renderable} which handles rendering
      * @return Component that contains the appropriate Rendering Context for the given API variant
      */
+    @NotNull
     public static Container getRenderingContext(@NotNull RendererAPIVariant variant, Renderable root){
         switch (variant) {
             case OPENGL -> {return getContainerForOpenGl(root);}
             }
-        return null;
+        return getRenderingContext(DEFAULT_API, root);
     }
 
     /**
