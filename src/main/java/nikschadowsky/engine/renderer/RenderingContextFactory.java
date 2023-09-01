@@ -3,6 +3,7 @@ package nikschadowsky.engine.renderer;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLJPanel;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -11,14 +12,25 @@ import java.awt.*;
  */
 public class RenderingContextFactory {
 
-    public static Container getRenderingContext(RendererAPIVariant variant, Renderable r){
+    /**
+     * Get a container to add to the SuperWindow and the root {@link Renderable}, which handles the user's rendering.
+     * @param variant API variant
+     * @param root {@link Renderable} which handles rendering
+     * @return Component that contains the appropriate Rendering Context for the given API variant
+     */
+    public static Container getRenderingContext(@NotNull RendererAPIVariant variant, Renderable root){
         switch (variant) {
-            case OPENGL -> {return doOpenGl(r);}
+            case OPENGL -> {return getContainerForOpenGl(root);}
             }
         return null;
     }
 
-    private static Container doOpenGl(Renderable r){
+    /**
+     * Create and return the Container that uses the OpenGL implementation by JOGL on the GL 4.x version.
+     * @param r root renderable
+     * @return OpenGL Container
+     */
+    private static Container getContainerForOpenGl(Renderable r){
         GLJPanel panel = new GLJPanel(new GLCapabilities(GLProfile.get(GLProfile.GL4)));
         panel.setFocusable(true);
 
