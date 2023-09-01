@@ -56,18 +56,8 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
         setupWindowFrame();
 
         loop = createCoreWindowLoop(windowConfiguration, stateManager, renderingContainer, rendererApiVariant);
-        // We want to monitor this Loops Status to react accordingly, when the loop stops
+        // We want to monitor this Loops Status to react accordingly, when the loop changes state
         loop.addObserver(this);
-
-
-        /*
-         * ABLAUF INIT
-         * -- WindowFrame gesetzt: Check
-         * -- contentPane setzen. chECK
-         * -- GLContext init : CoreLoops Task
-         * -- CoreLoop erzeugen und per DI context reinreichen zum repainten: Check
-         * -- *start()*
-         */
 
         window.setVisible(true);
     }
@@ -108,6 +98,7 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
             renderingContainer = customWindowFrame.getRenderingContainer();
             window.setUndecorated(true);
             customWindowFrame.setAssignedSuperWindow(this);
+            customWindowFrame.validateComponentHierarchy();
             window.getContentPane().add(customWindowFrame.getFrameRootContainer());
         }
     }
