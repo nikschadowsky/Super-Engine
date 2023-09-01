@@ -2,7 +2,7 @@ package nikschadowsky.engine.loop;
 
 import nikschadowsky.engine.loop.observer.ApplicationLoopObserver;
 import nikschadowsky.engine.loop.observer.LoopStateEvent;
-import nikschadowsky.engine.renderer.RendererVariant;
+import nikschadowsky.engine.renderer.RendererAPIVariant;
 import nikschadowsky.engine.renderer.RenderingContextFactory;
 import nikschadowsky.engine.statemanager.StateManager;
 import org.jetbrains.annotations.NotNull;
@@ -27,16 +27,17 @@ public class CoreWindowLoop implements ApplicationLoop {
 
     private final Thread coreThread;
 
-    public CoreWindowLoop(int tps, int fps, StateManager stateManager, Container contentPane, RendererVariant variant) {
+    public CoreWindowLoop(int tps, int fps, StateManager stateManager, Container contentPane, RendererAPIVariant variant) {
         this.tps = tps;
         this.fps = fps;
         this.stateMgr = stateManager;
 
         observers = new ArrayList<>();
 
-        contentPane.add(RenderingContextFactory.getRenderingContext(variant, stateMgr));
+        contentPane.add(RenderingContextFactory.getRenderingContext(variant, stateMgr), BorderLayout.CENTER);
 
         coreThread = new Thread(this::runTask, "CoreThread");
+
     }
 
     private double nsPerUpdate, nsPerRender;

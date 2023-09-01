@@ -12,7 +12,7 @@ import static nikschadowsky.engine.window.configuration.SuperWindowConfiguration
 /**
  * File created on 12.08.2023
  */
-public class SuperWindowConfiguration {
+public class SuperWindowConfiguration{
 
     public static final SuperWindowConfiguration DEFAULT_CONFIGURATION = new SuperWindowConfigurationBuilder().build();
     private final ConfigurationMap map;
