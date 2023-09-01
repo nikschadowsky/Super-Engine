@@ -37,6 +37,7 @@ public class CoreWindowLoop implements ApplicationLoop {
         contentPane.add(RenderingContextFactory.getRenderingContext(variant, stateMgr), BorderLayout.CENTER);
 
         coreThread = new Thread(this::runTask, "CoreThread");
+
     }
 
     private double nsPerUpdate, nsPerRender;
