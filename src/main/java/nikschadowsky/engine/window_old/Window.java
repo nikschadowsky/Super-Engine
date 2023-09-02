@@ -1,6 +1,5 @@
 package nikschadowsky.engine.window_old;
 
-import nikschadowsky.engine.gameloop.GameLoop;
 import nikschadowsky.engine.statemanager.StateManager;
 
 import javax.swing.*;
@@ -16,7 +15,6 @@ public class Window {
 
     private int instanceID = -1;
 
-    private GameLoop loop;
 
     public Window(WindowConfiguration wc, StateManager statemgr) {
 
@@ -42,10 +40,8 @@ public class Window {
 
         });
 
-        loop = new GameLoop(wc.getUPS(), wc.getFPS(), statemgr);
 
         window.setLayout(new BorderLayout());
-        window.add(loop);
 
         // finalize window
 
@@ -57,7 +53,6 @@ public class Window {
 
         window.setVisible(false);
 
-        loop.stop();
 
         // threadmanager zum nullen in instance-list aufrufen
         /*if (!ThreadManager.close(instanceID)) {
@@ -66,9 +61,6 @@ public class Window {
 
     }
 
-    public void start() {
-        loop.start(getInstanceID());
-    }
 
     /**
      * @return this window's instanceID set by called start-method
