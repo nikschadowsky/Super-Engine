@@ -6,6 +6,6 @@ package nikschadowsky.engine.event;
 public interface EventHandler<T extends Event> {
 
     void dequeueAllEvents();
-    void enqueueEvents(T event);
+    void enqueueEvent(T event);
 
 }
