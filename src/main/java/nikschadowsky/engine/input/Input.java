@@ -1,7 +1,7 @@
 package nikschadowsky.engine.input;
 
 public enum Input {
-    ;
+    PRESSED,RELEASED, TYPED ,CLICKED, ENTERED, EXITED, SCROLLED;
     public static final int UNDEFINED = 0;
     public static final int CANCEL = 3;
     public static final int BACK_SPACE = 8;
@@ -202,4 +202,5 @@ public enum Input {
     public static final int MB8 = 808;
     public static final int MB9 = 809;
 
+    public static int getMouseInputOffset(){return 800;}
 }
