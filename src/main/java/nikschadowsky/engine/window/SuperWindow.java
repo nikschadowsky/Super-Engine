@@ -1,5 +1,8 @@
 package nikschadowsky.engine.window;
 
+import nikschadowsky.engine.input.InputHandler;
+import nikschadowsky.engine.input.InputListener;
+import nikschadowsky.engine.input.InputUpdatable;
 import nikschadowsky.engine.loop.ApplicationLoop;
 import nikschadowsky.engine.loop.CoreWindowLoop;
 import nikschadowsky.engine.loop.observer.ApplicationLoopObserver;
@@ -34,6 +37,8 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
 
     private ApplicationLoop loop;
 
+    private InputHandler inputHandler;
+
     /**
      * Creates a SuperWindow. This window may be started by invoking {@code start();} and after that may be terminated unrestorably by invoking {@code end();} on this object
      *
@@ -54,6 +59,8 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
         window = createFrame(windowConfiguration);
 
         setupWindowFrame();
+
+        inputHandler = createAndRegisterInputHandler(stateManager);
 
         loop = createCoreWindowLoop(windowConfiguration, stateManager, renderingContainer, rendererApiVariant);
         // We want to monitor this Loops Status to react accordingly, when the loop changes state
@@ -101,6 +108,16 @@ public class SuperWindow extends ApplicationInstanceImpl implements ApplicationL
             customWindowFrame.validateComponentHierarchy();
             window.getContentPane().add(customWindowFrame.getFrameRootContainer());
         }
+    }
+
+    private InputHandler createAndRegisterInputHandler(InputUpdatable updatable){
+        InputListener inputListener = new InputListener(updatable);
+
+        window.addKeyListener(inputListener);
+        window.addMouseListener(inputListener);
+        window.addMouseWheelListener(inputListener);
+
+        return inputListener.getInputHandler();
     }
 
     /**
