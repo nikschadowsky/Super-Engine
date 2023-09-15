@@ -34,7 +34,7 @@ public class InputListener implements KeyListener, MouseListener, MouseWheelList
 
     @Override
     public void keyTyped(KeyEvent e) {
-        handler.enqueueEvent(new InputEvent(Input.TYPED, e.getExtendedKeyCode(), handler));
+        handler.enqueueEvent(new InputEvent(Input.TYPED, e.getKeyChar(), handler));
     }
 
     @Override
