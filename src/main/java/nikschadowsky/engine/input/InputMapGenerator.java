@@ -20,7 +20,6 @@ public class InputMapGenerator {
 
         for (Field f : fields) {
             if (Modifier.isStatic(f.getModifiers()) && f.getName().contains("VK_")) {
-                //System.out.println("public static final int " + f.getName().replace("VK_", "") + " = " + f.getInt(f.getName()));
 
                 data.add(new DataHolder(f.getName().replace("VK_", ""), f.getInt(f.getName())));
 
@@ -29,6 +28,7 @@ public class InputMapGenerator {
 
         data.stream().sorted(Comparator.comparingInt(DataHolder::value)).forEach(
                 a -> System.out.println("public static final int " + a.name() + " = " + a.value() + ";"));
+
 
     }
 
