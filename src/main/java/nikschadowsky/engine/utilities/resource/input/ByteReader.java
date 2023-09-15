@@ -1,4 +1,4 @@
-package nikschadowsky.engine.resources;
+package nikschadowsky.engine.utilities.resource.input;
 
 import java.io.IOException;
 import java.nio.file.Files;

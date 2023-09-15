@@ -1,4 +1,4 @@
-package nikschadowsky.engine.utilities.resource;
+package nikschadowsky.engine.utilities.resource.input;
 
 public class FileUtilities {
 
