@@ -4,7 +4,9 @@ import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL4;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
+import nikschadowsky.engine.event.InputEvent;
 import nikschadowsky.engine.hierarchy.State;
+import nikschadowsky.engine.input.InputUpdatable;
 import nikschadowsky.engine.opengl.VertexArrayObject;
 import nikschadowsky.engine.renderer.Renderable;
 import nikschadowsky.engine.rendering_old.RenderingInformation;
@@ -12,7 +14,7 @@ import nikschadowsky.engine.rendering_old.RenderingInformation;
 import java.util.HashMap;
 
 // FIXME: 20.08.2023 REWORK this bad boi
-public abstract class StateManager implements GLEventListener, Renderable {
+public abstract class StateManager implements GLEventListener, Renderable, InputUpdatable {
 
     private HashMap<String, State> states;
 
@@ -48,8 +50,9 @@ public abstract class StateManager implements GLEventListener, Renderable {
 
     }
 
-    public void input() {
-        currentState.input();
+    @Override
+    public void updateInput(InputEvent e) {
+        currentState.input(e);
 
     }
 

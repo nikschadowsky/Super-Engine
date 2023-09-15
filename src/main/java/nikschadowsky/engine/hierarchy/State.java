@@ -1,5 +1,6 @@
 package nikschadowsky.engine.hierarchy;
 
+import nikschadowsky.engine.event.InputEvent;
 import nikschadowsky.engine.rendering_old.RenderingInformation;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public abstract class State {
 		}
 	}
 
-	public void input() {
+	public void input(InputEvent e) {
 		for (int i = 0; i < layers.size(); i++) {
 			layers.get(i).input();
 		}
