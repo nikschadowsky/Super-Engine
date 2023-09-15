@@ -6,10 +6,14 @@ import java.awt.event.*;
 import java.util.HashMap;
 
 /**
+ * Class for being directly added to listen for key, mouse and mouse wheel events by a AWT component.
+ * <p>
  * File created on 03.09.2023
  */
 public class InputListener implements KeyListener, MouseListener, MouseWheelListener {
 
+
+    // Constant for the threshold in which a key PRESSED and RELEASED event chain counts as a CLICKED event
     public static final long KEY_CLICKED_EVENT_THRESHOLD = 200_000_000; // 200 milliseconds in nanoseconds
 
     private final InputHandler handler;
@@ -21,6 +25,9 @@ public class InputListener implements KeyListener, MouseListener, MouseWheelList
         pressedKeys = new HashMap<>();
     }
 
+    /**
+     * @return InputHandler for this InputListener
+     */
     public InputHandler getInputHandler() {
         return handler;
     }
@@ -38,7 +45,6 @@ public class InputListener implements KeyListener, MouseListener, MouseWheelList
 
     @Override
     public void keyReleased(KeyEvent e) {
-
 
         // if for some reason the map does not contain the System.nanoTime() to e.getExtendedKeyCode()
         // we use the negative of the threshold, so then at no time we can trigger a CLICKED event

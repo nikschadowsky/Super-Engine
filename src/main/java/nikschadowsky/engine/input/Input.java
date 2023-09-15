@@ -1,7 +1,21 @@
 package nikschadowsky.engine.input;
 
+/**
+ * Constants for the various input events:
+ * <ul>
+ *     <li>PRESSED: a key or a mouse button has been pressed down</li>
+ *     <li>RELEASED: a key or a mouse button has been released</li>
+ *     <li>TYPED: a key or a mouse button has been pressed down and returned a valid unicode character</li>
+ *     <li>CLICKED: a key or a mouse button has been pressed and released fairly quickly</li>
+ *     <li>ENTERED: the cursor has entered the component</li>
+ *     <li>EXITED: the cursor has left the component</li>
+ *     <li>SCROLLED: the mouse wheel has been turned</li>
+ * </ul>
+ * <p>
+ * This class also holds constants for regular ASCII keycodes as defined in {@link java.awt.event.KeyEvent}
+ */
 public enum Input {
-    PRESSED,RELEASED, TYPED ,CLICKED, ENTERED, EXITED, SCROLLED;
+    PRESSED, RELEASED, TYPED, CLICKED, ENTERED, EXITED, SCROLLED;
     public static final int UNDEFINED = 0;
     public static final int CANCEL = 3;
     public static final int BACK_SPACE = 8;
@@ -202,5 +216,7 @@ public enum Input {
     public static final int MB8 = 808;
     public static final int MB9 = 809;
 
-    public static int getMouseInputOffset(){return 800;}
+    public static int getMouseInputOffset() {
+        return 800;
+    }
 }
