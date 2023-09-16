@@ -1,5 +1,6 @@
 package nikschadowsky.engine.resources;
 
+import nikschadowsky.engine.utilities.resource.input.ByteReader;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

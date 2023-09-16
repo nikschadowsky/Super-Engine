@@ -1,6 +1,6 @@
 package nikschadowsky.engine.resources;
 
-import nikschadowsky.engine.utilities.resource.FileUtilities;
+import nikschadowsky.engine.utilities.resource.input.FileUtilities;
 
 public class DefaultResourceLoader implements ResourceLoader {
     @Override

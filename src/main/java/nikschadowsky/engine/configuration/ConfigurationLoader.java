@@ -1,6 +1,6 @@
 package nikschadowsky.engine.configuration;
 
-import nikschadowsky.engine.resources.ByteReader;
+import nikschadowsky.engine.utilities.resource.input.ByteReader;
 
 import java.util.Collections;
 import java.util.HashMap;
