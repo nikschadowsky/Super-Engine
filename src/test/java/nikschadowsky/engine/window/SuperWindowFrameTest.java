@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import javax.swing.*;
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -32,14 +32,14 @@ public class SuperWindowFrameTest {
     void testValidateComponentHierarchyNotConnected() {
         SuperWindowFrameWrapper superWindowFrameWrapper = new SuperWindowFrameWrapper();
 
-        assertFalse(superWindowFrameWrapper.validateComponentHierarchy());
+        assertThrowsExactly(SuperWindowInitializationException.class, superWindowFrameWrapper::validateComponentHierarchy);
     }
 
     @Test
-    void testValidateComponentHierarchyContextHasChild(){
+    void testValidateComponentHierarchyContextHasChild() {
         SuperWindowFrameWrapper superWindowFrameWrapper = new SuperWindowFrameWrapper(0);
 
-        assertFalse(superWindowFrameWrapper.validateComponentHierarchy());
+        assertThrowsExactly(SuperWindowInitializationException.class, superWindowFrameWrapper::validateComponentHierarchy);
     }
 
     private static class SuperWindowFrameWrapper extends SuperWindowFrame {
@@ -64,7 +64,7 @@ public class SuperWindowFrameTest {
         public SuperWindowFrameWrapper() {
         }
 
-        public SuperWindowFrameWrapper(int dummy){
+        public SuperWindowFrameWrapper(int dummy) {
             getRenderingContainer().add(new JPanel());
         }
     }
