@@ -31,14 +31,16 @@ public class StringFileWriterTest {
     void testWriting() throws IOException {
 
         String sampleString1 = "this is a test 12345";
+        String sampleString2 = " and this too";
 
 
         StringFileWriter writer = new StringFileWriter(filePath, false);
         writer.write(sampleString1);
+        writer.write(sampleString2);
         writer.save();
 
         String reread = new String(ByteReader.readAllBytesFromFile(filePath));
-        assertEquals(sampleString1, reread);
+        assertEquals(sampleString1 + sampleString2, reread);
 
         String toAppend = "\nthis part was appended";
         writer = new StringFileWriter(filePath, true);
@@ -46,7 +48,7 @@ public class StringFileWriterTest {
         writer.save();
 
         reread = new String(ByteReader.readAllBytesFromFile(filePath));
-        assertEquals(sampleString1 + toAppend, reread);
+        assertEquals(sampleString1 + sampleString2 + toAppend, reread);
 
     }
 
