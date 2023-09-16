@@ -1,5 +1,7 @@
 package nikschadowsky.engine.utilities.resource.output;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 
 /**
@@ -20,5 +22,6 @@ public interface FileWriter {
     /**
      * @return the specified filepath of the output
      */
+    @NotNull
     String getPath();
 }
