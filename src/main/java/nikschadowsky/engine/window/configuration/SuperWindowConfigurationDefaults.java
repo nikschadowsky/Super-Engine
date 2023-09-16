@@ -1,6 +1,6 @@
 package nikschadowsky.engine.window.configuration;
 
-import nikschadowsky.engine.configuration.NoSuchConfigurationValue;
+import nikschadowsky.engine.configuration.NoSuchConfigurationValueException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class SuperWindowConfigurationDefaults {
 
     public static String getDefaultValue(String key) {
 
-        DEFAULT_CONFIG.computeIfAbsent(key, k -> {throw new NoSuchConfigurationValue(k);});
+        DEFAULT_CONFIG.computeIfAbsent(key, k -> {throw new NoSuchConfigurationValueException(k);});
 
         return DEFAULT_CONFIG.getOrDefault(key, "");
     }
