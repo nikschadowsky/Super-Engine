@@ -12,9 +12,9 @@ import java.nio.file.Paths;
  */
 public class FileCreation {
 
-    private static final IllegalArgumentException absolutePathException = new IllegalArgumentException("Specified Path is not absolute!");
+    public static final String RELATIVE_CLASSLOADER_PATH = FileCreation.class.getClassLoader().getResource("").getPath();
 
-    public static boolean fileExists(String absolutePath) {
+    public static boolean fileOrDirectoryExists(String absolutePath) {
         return checkForValidPath(absolutePath).exists();
     }
 
@@ -53,7 +53,7 @@ public class FileCreation {
         if (Paths.get(path).isAbsolute()) {
             return new File(path);
         }
-        throw absolutePathException;
+        throw new IllegalArgumentException("Specified Path is not absolute!");
     }
 
 }
