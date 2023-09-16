@@ -14,6 +14,11 @@ public class StringFileWriter implements FileWriter {
 
     private final StringBuilder builder;
 
+    /**
+     * @param path   path to the file to write to. file must not exist upon instantiation but has to exists upon
+     *               saving.
+     * @param append
+     */
     public StringFileWriter(@NotNull String path, boolean append) {
         this.path = path;
         this.append = append;
