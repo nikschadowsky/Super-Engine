@@ -22,7 +22,7 @@ public class StringFileWriterTest {
 
     @BeforeEach
     void createFileStructure() {
-        assertFalse(FileCreation.fileExists(directory), "The folder already exists!");
+        assertFalse(FileCreation.fileOrDirectoryExists(directory), "The folder already exists!");
         assertTrue(FileCreation.createDirectory(directory));
         FileCreation.createFile(filePath);
     }
