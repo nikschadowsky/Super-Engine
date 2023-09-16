@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StringFileWriterTest {
 
     private static final String directory = System.getProperty("user.home") + "/.SUPER_ENGINE_TEST";
-    private static final String filename = "_FileWriterTest.test";
+    private static final String filename = "_StringFileWriterTest.test";
 
     private static final String filePath = directory + "/" + filename;
 
