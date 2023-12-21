@@ -12,7 +12,7 @@ import java.nio.file.Paths;
  */
 public class FileCreation {
 
-    public static final String RELATIVE_CLASSLOADER_PATH = FileCreation.class.getClassLoader().getResource("").getPath();
+    public static final String CURRENT_WORKING_PATH = System.getProperty("user.dir");
 
     public static boolean fileOrDirectoryExists(String absolutePath) {
         return checkForValidPath(absolutePath).exists();
